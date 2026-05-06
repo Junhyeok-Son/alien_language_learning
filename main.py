@@ -12,8 +12,6 @@ import logging
 
 from dotenv import load_dotenv
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import Qt
-
 from src.ui.dashboard import MainWindow
 
 
@@ -51,9 +49,6 @@ def main() -> None:
     app = QApplication(sys.argv)
     app.setApplicationName('Eridian Language Learning')
     app.setApplicationVersion('1.0.0')
-
-    # High-DPI support (Qt6 handles scaling automatically, but be explicit)
-    app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps, True)
 
     window = MainWindow(demo_mode=args.demo)
     window.show()

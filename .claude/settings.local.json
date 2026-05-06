@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning)",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning\\\\src\\\\audio\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning\\\\src\\\\vector_db\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning\\\\src\\\\llm\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning\\\\src\\\\ui\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"C:\\\\Users\\\\SSAFY\\\\Desktop\\\\alien_language_learning\\\\data\")",
+      "Bash(python -m py_compile src/audio/chord_templates.py src/audio/capture.py src/audio/processor.py src/audio/demo_generator.py src/vector_db/lexicon.py src/llm/translator.py src/ui/workers.py src/ui/dashboard.py main.py)"
+    ]
+  }
+}

@@ -10,6 +10,7 @@ Design choices from research docs:
   - Output chroma: 12-dim float32, L2-normalised
 """
 
+import warnings
 import numpy as np
 import librosa
 from dataclasses import dataclass
@@ -109,16 +110,25 @@ class AudioProcessor:
         """
         CQT-based chroma (librosa chroma_cqt) — best for polyphonic harmony.
         Falls back to STFT chroma on error.
+
+        fmin=C3 (not C2) avoids the sub-1024-sample FFT windows that librosa's
+        CQT uses for very low octaves, eliminating "n_fft too large" UserWarnings.
         """
         try:
-            chroma = librosa.feature.chroma_cqt(
-                y=audio,
-                sr=SAMPLE_RATE,
-                hop_length=HOP_LENGTH,
-                fmin=librosa.note_to_hz('C2'),
-                n_chroma=12,
-                bins_per_octave=36,
-            )
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    'ignore',
+                    message='n_fft=.*is too large',
+                    category=UserWarning,
+                )
+                chroma = librosa.feature.chroma_cqt(
+                    y=audio,
+                    sr=SAMPLE_RATE,
+                    hop_length=HOP_LENGTH,
+                    fmin=librosa.note_to_hz('C3'),
+                    n_chroma=12,
+                    bins_per_octave=36,
+                )
             # Mean across time frames → single 12-dim vector
             return chroma.mean(axis=1).astype(np.float32)
         except Exception:
